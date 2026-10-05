@@ -1,17 +1,18 @@
 version: '3.8'
 
 services:
-  postgres:
-    image: postgres:15-alpine
-    container_name: civicpulse-postgres
+  mysql:
+    image: mysql:8.0
+    container_name: civicpulse-mysql
     ports:
-      - "5432:5432"
+      - "3306:3306"
     environment:
-      POSTGRES_USER: civicpulse
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: civicpulse_db
+      MYSQL_DATABASE: civicpulse_db
+      MYSQL_USER: civicpulse
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpassword
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - mysqldata:/var/lib/mysql
     restart: unless-stopped
 
   redis:
@@ -55,4 +56,4 @@ services:
       - "8080:8080"
 
 volumes:
-  pgdata:
+  mysqldata:
